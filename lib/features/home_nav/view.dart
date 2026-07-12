@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mens_store/core/helper/app_colors.dart';
+
+import '../../core/helper/app_colors.dart';
 import 'Screens/cart/view.dart';
 import 'Screens/home/homeScreen.dart';
 import 'Screens/profile/view.dart';
@@ -14,10 +15,10 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
   int currentIndex = 0;
 
-  final List<Widget> pages = [
-    const HomeScreen(),
-    const CartScreen(),
-    const AccountScreen(),
+  final List<Widget> pages = const [
+    HomeScreen(),
+    CartScreen(),
+    AccountScreen(),
   ];
 
   @override
@@ -26,11 +27,14 @@ class _NavbarState extends State<Navbar> {
       body: pages[currentIndex],
 
       bottomNavigationBar: Container(
-
-        padding:  EdgeInsets.symmetric(horizontal: 20),
-        decoration:  BoxDecoration(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: const BoxDecoration(
           color: AppColors.white,
-          border: Border(top: BorderSide(color: AppColors.border)),
+          border: Border(
+            top: BorderSide(
+              color: AppColors.border,
+            ),
+          ),
         ),
         child: BottomNavigationBar(
           backgroundColor: Colors.transparent,
@@ -44,7 +48,7 @@ class _NavbarState extends State<Navbar> {
               currentIndex = index;
             });
           },
-          items:  [
+          items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
               activeIcon: Icon(Icons.home),

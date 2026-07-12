@@ -1,9 +1,13 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:mens_store/core/helper/app_colors.dart';
 import 'package:mens_store/core/helper/app_style.dart';
 import 'package:mens_store/models/product_model.dart';
 
+import '../../core/helper/app_tost.dart';
+import '../home_nav/Controller/cart/cart_cubit.dart';
 import '../widgets/app_button.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -63,7 +67,23 @@ class DetailsScreen extends StatelessWidget {
               child: SizedBox(
                 height: 54,
                 child: ElevatedButton.icon(
-                  onPressed: () {},
+                  onPressed: () async {
+                    try {
+                      await context.read<CartCubit>().addToCart(product.id);
+
+                      showSnackBar(
+                        context: context,
+                        msg: "Added to cart ",
+                        type: AnimatedSnackBarType.success,
+                      );
+                    } catch (e) {
+                      showSnackBar(
+                        context: context,
+                        msg: "Failed to add to cart",
+                        type: AnimatedSnackBarType.error,
+                      );
+                    }
+                  },
                   icon: Icon(Icons.shopping_bag_outlined, color: Colors.white),
                   label: Text("Add to Cart", style: AppStyles.button),
                   style: ElevatedButton.styleFrom(

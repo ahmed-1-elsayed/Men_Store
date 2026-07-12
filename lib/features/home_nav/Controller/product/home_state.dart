@@ -1,4 +1,4 @@
-part of'home_cubit.dart';
+import '../../../../models/product_model.dart';
 
 abstract class HomeState {}
 
@@ -8,8 +8,12 @@ class HomeLoading extends HomeState {}
 
 class HomeSuccess extends HomeState {
   final List<ProductModel> products;
+  final int selectedCategory;
 
-  HomeSuccess(this.products);
+  HomeSuccess({
+    required this.products,
+    required this.selectedCategory,
+  });
 }
 
 class HomeFailure extends HomeState {
