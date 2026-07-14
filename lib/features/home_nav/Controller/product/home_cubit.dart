@@ -22,17 +22,11 @@ class HomeCubit extends Cubit<HomeState> {
         "https://api.escuelajs.co/api/v1/products",
       );
 
-      final List<ProductModel> products =
-      (response.data as List)
+      final List<ProductModel> products = (response.data as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
 
-      emit(
-        HomeSuccess(
-          products: products,
-          selectedCategory: selectedCategory,
-        ),
-      );
+      emit(HomeSuccess(products: products, selectedCategory: selectedCategory));
     } catch (e) {
       emit(HomeFailure(e.toString()));
     }
@@ -49,17 +43,11 @@ class HomeCubit extends Cubit<HomeState> {
         "https://api.escuelajs.co/api/v1/products/?categoryId=$categoryId",
       );
 
-      final List<ProductModel> products =
-      (response.data as List)
+      final List<ProductModel> products = (response.data as List)
           .map((e) => ProductModel.fromJson(e))
           .toList();
 
-      emit(
-        HomeSuccess(
-          products: products,
-          selectedCategory: selectedCategory,
-        ),
-      );
+      emit(HomeSuccess(products: products, selectedCategory: selectedCategory));
     } catch (e) {
       emit(HomeFailure(e.toString()));
     }

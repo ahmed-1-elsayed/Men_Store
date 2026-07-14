@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/helper/app_colors.dart';
@@ -30,11 +31,7 @@ class _NavbarState extends State<Navbar> {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: const BoxDecoration(
           color: AppColors.white,
-          border: Border(
-            top: BorderSide(
-              color: AppColors.border,
-            ),
-          ),
+          border: Border(top: BorderSide(color: AppColors.border)),
         ),
         child: BottomNavigationBar(
           backgroundColor: Colors.transparent,
@@ -48,21 +45,21 @@ class _NavbarState extends State<Navbar> {
               currentIndex = index;
             });
           },
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home_outlined),
-              activeIcon: Icon(Icons.home),
-              label: "Home",
+              icon: const Icon(Icons.home_outlined),
+              activeIcon: const Icon(Icons.home),
+              label: "home".tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined),
-              activeIcon: Icon(Icons.shopping_cart),
-              label: "Cart",
+              icon: const Icon(Icons.shopping_cart_outlined),
+              activeIcon: const Icon(Icons.shopping_cart),
+              label: "cart".tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
-              activeIcon: Icon(Icons.person),
-              label: "Account",
+              icon: const Icon(Icons.person_outline),
+              activeIcon: const Icon(Icons.person),
+              label: "account".tr(),
             ),
           ],
         ),

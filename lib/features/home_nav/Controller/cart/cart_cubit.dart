@@ -13,13 +13,9 @@ class CartCubit extends Cubit<CartState> {
     emit(CartLoading());
 
     try {
-      final response = await dio.get(
-        "https://dummyjson.com/carts/user/1",
-      );
+      final response = await dio.get("https://dummyjson.com/carts/user/1");
 
-      final cart = CartModel.fromJson(
-        response.data["carts"][0],
-      );
+      final cart = CartModel.fromJson(response.data["carts"][0]);
 
       emit(CartSuccess(cart));
     } catch (e) {
@@ -34,10 +30,7 @@ class CartCubit extends Cubit<CartState> {
         data: {
           "userId": 1,
           "products": [
-            {
-              "id": productId,
-              "quantity": 1,
-            }
+            {"id": productId, "quantity": 1},
           ],
         },
       );

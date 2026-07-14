@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/helper/app_colors.dart';
-import '../../../../core/helper/app_style.dart';
+import '../../core/helper/app_colors.dart';
+import '../../core/helper/app_style.dart';
 
 class ProfileItem extends StatelessWidget {
   final IconData icon;
@@ -17,6 +17,8 @@ class ProfileItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isRtl = Directionality.of(context) == TextDirection.rtl;
+
     return InkWell(
       onTap: onTap,
       child: Padding(
@@ -37,7 +39,10 @@ class ProfileItem extends StatelessWidget {
               ),
             ),
 
-            const Icon(Icons.chevron_right, color: Colors.grey),
+            Icon(
+              isRtl ? Icons.chevron_left : Icons.chevron_right,
+              color: Colors.grey,
+            ),
           ],
         ),
       ),

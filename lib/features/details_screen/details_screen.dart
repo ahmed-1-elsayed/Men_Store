@@ -1,4 +1,5 @@
 import 'package:animated_snack_bar/animated_snack_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,7 +9,6 @@ import 'package:mens_store/models/product_model.dart';
 
 import '../../core/helper/app_tost.dart';
 import '../home_nav/Controller/cart/cart_cubit.dart';
-import '../widgets/app_button.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key, required this.product});
@@ -25,7 +25,7 @@ class DetailsScreen extends StatelessWidget {
         elevation: 0,
         centerTitle: true,
         title: Text(
-          "Details",
+          "details".tr(),
           style: AppStyles.label.copyWith(
             fontSize: 24,
             fontWeight: FontWeight.w600,
@@ -52,7 +52,7 @@ class DetailsScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Price", style: AppStyles.footer),
+                  Text("price".tr(), style: AppStyles.footer),
                   const SizedBox(height: 4),
                   Text(
                     "\$ ${product.price}",
@@ -71,21 +71,28 @@ class DetailsScreen extends StatelessWidget {
                     try {
                       await context.read<CartCubit>().addToCart(product.id);
 
+                      if (!context.mounted) return;
+
                       showSnackBar(
                         context: context,
-                        msg: "Added to cart ",
+                        msg: "addedToCart".tr(),
                         type: AnimatedSnackBarType.success,
                       );
                     } catch (e) {
+                      if (!context.mounted) return;
+
                       showSnackBar(
                         context: context,
-                        msg: "Failed to add to cart",
+                        msg: "failedToAddToCart".tr(),
                         type: AnimatedSnackBarType.error,
                       );
                     }
                   },
-                  icon: Icon(Icons.shopping_bag_outlined, color: Colors.white),
-                  label: Text("Add to Cart", style: AppStyles.button),
+                  icon: const Icon(
+                    Icons.shopping_bag_outlined,
+                    color: Colors.white,
+                  ),
+                  label: Text("addToCart".tr(), style: AppStyles.button),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,
 
@@ -138,10 +145,10 @@ class DetailsScreen extends StatelessWidget {
             const SizedBox(height: 10),
 
             Row(
-              children: const [
-                Icon(Icons.star, color: Colors.orange, size: 20),
-                SizedBox(width: 4),
-                Text("4.0/5 (45 reviews)"),
+              children: [
+                const Icon(Icons.star, color: Colors.orange, size: 20),
+                const SizedBox(width: 4),
+                Text("ratingWithReviews".tr(args: ["45"])),
               ],
             ),
 

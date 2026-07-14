@@ -11,11 +11,9 @@ class LoginCubit extends Cubit<LoginState> {
 
   final Dio dio = Dio();
 
-  final TextEditingController userEmailController =
-  TextEditingController();
+  final TextEditingController userEmailController = TextEditingController();
 
-  final TextEditingController userPasswordController =
-  TextEditingController();
+  final TextEditingController userPasswordController = TextEditingController();
 
   Future<void> login() async {
     try {
@@ -29,19 +27,19 @@ class LoginCubit extends Cubit<LoginState> {
         },
       );
 
-      if (response.statusCode == 200||response.statusCode==201) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final UserModel user = UserModel.fromJson(response.data);
 
         emit(LoginSuccess(user));
       } else {
-        emit(LoginFailure("Login Failed"));
+        emit(LoginFailure("loginFailed"));
       }
     } on DioException catch (e) {
       emit(
         LoginFailure(
           e.response?.data["message"]?.toString() ??
               e.message ??
-              "Network Error",
+              "networkError",
         ),
       );
     } catch (e) {

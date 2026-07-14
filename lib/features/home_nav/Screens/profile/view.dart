@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/helper/app_colors.dart';
@@ -20,7 +21,7 @@ class AccountScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
-          "Account",
+          "account".tr(),
           style: AppStyles.label.copyWith(
             fontSize: 24,
             fontWeight: FontWeight.w600,
@@ -36,7 +37,7 @@ class AccountScreen extends StatelessWidget {
 
             ProfileItem(
               icon: Icons.inventory_2_outlined,
-              title: "My Orders",
+              title: "myOrders".tr(),
               onTap: () {},
             ),
 
@@ -44,7 +45,7 @@ class AccountScreen extends StatelessWidget {
 
             ProfileItem(
               icon: Icons.person_outline,
-              title: "My Details",
+              title: "myDetails".tr(),
               onTap: () {},
             ),
 
@@ -52,7 +53,7 @@ class AccountScreen extends StatelessWidget {
 
             ProfileItem(
               icon: Icons.home_outlined,
-              title: "Address Book",
+              title: "addressBook".tr(),
               onTap: () {
                 Navigator.push(
                   context,
@@ -63,13 +64,29 @@ class AccountScreen extends StatelessWidget {
 
             const Divider(),
 
-            ProfileItem(icon: Icons.help_outline, title: "FAQs", onTap: () {}),
+            ProfileItem(
+              icon: Icons.help_outline,
+              title: "faqs".tr(),
+              onTap: () {},
+            ),
+            const Divider(),
+
+            ProfileItem(
+              icon: Icons.language,
+              title: "changeLanguage".tr(),
+              onTap: () async {
+                final nextLocale = context.locale.languageCode == "en"
+                    ? const Locale("ar")
+                    : const Locale("en");
+                await context.setLocale(nextLocale);
+              },
+            ),
 
             const Divider(),
 
             ProfileItem(
               icon: Icons.headset_mic_outlined,
-              title: "Help Center",
+              title: "helpCenter".tr(),
               onTap: () {},
             ),
 
@@ -103,9 +120,9 @@ class AccountScreen extends StatelessWidget {
 
                             const SizedBox(height: 20),
 
-                            const Text(
-                              "Logout?",
-                              style: TextStyle(
+                            Text(
+                              "logoutQuestion".tr(),
+                              style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -113,10 +130,10 @@ class AccountScreen extends StatelessWidget {
 
                             const SizedBox(height: 10),
 
-                            const Text(
-                              "Are you sure you want to logout?",
+                            Text(
+                              "logoutConfirm".tr(),
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color(0xff808080),
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
@@ -144,9 +161,9 @@ class AccountScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                 ),
-                                child: const Text(
-                                  "Yes, Logout",
-                                  style: TextStyle(
+                                child: Text(
+                                  "yesLogout".tr(),
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,
                                   ),
@@ -168,9 +185,9 @@ class AccountScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                 ),
-                                child: const Text(
-                                  "No, Cancel",
-                                  style: TextStyle(
+                                child: Text(
+                                  "noCancel".tr(),
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 16,
                                   ),
@@ -189,7 +206,7 @@ class AccountScreen extends StatelessWidget {
                   const Icon(Icons.logout, color: Colors.red),
                   const SizedBox(width: 10),
                   Text(
-                    "Logout",
+                    "logout".tr(),
                     style: AppStyles.label.copyWith(color: Colors.red),
                   ),
                 ],

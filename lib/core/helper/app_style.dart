@@ -27,10 +27,7 @@ class AppStyles {
   );
 
   // Hint inside TextField
-  static const TextStyle hint = TextStyle(
-    fontSize: 14,
-    color: AppColors.grey,
-  );
+  static const TextStyle hint = TextStyle(fontSize: 14, color: AppColors.grey);
 
   // Button text
   static const TextStyle button = TextStyle(

@@ -5,11 +5,7 @@ import '../../core/helper/app_colors.dart';
 import '../../core/helper/app_style.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({
-    super.key,
-    required this.product,
-    required this.onTap,
-  });
+  const ProductCard({super.key, required this.product, required this.onTap});
 
   final ProductModel product;
   final VoidCallback onTap;
@@ -29,16 +25,14 @@ class ProductCard extends StatelessWidget {
             Expanded(
               flex: 4,
               child: ClipRRect(
-                borderRadius:  BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(16),
 
                 child: Image.network(
                   product.images.first,
                   width: double.infinity,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
-                    return const Center(
-                      child: Icon(Icons.image_not_supported),
-                    );
+                    return const Center(child: Icon(Icons.image_not_supported));
                   },
                 ),
               ),
@@ -60,10 +54,7 @@ class ProductCard extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Text(
-                "\$ ${product.price}",
-                style: AppStyles.footer,
-              ),
+              child: Text("\$ ${product.price}", style: AppStyles.footer),
             ),
 
             const SizedBox(height: 8),

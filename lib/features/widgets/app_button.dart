@@ -4,11 +4,7 @@ import 'package:mens_store/core/helper/app_style.dart';
 import '../../core/helper/app_colors.dart';
 
 class AppButton extends StatelessWidget {
-  const AppButton({
-    super.key,
-    required this.text,
-    required this.onPressed,
-  });
+  const AppButton({super.key, required this.text, required this.onPressed});
 
   final String text;
   final VoidCallback onPressed;
@@ -27,10 +23,7 @@ class AppButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        child: Text(
-          text,
-          style: AppStyles.button,
-        ),
+        child: Text(text, style: AppStyles.button),
       ),
     );
   }

@@ -1,30 +1,23 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+import 'dart:convert';
+import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:mens_store/main.dart';
-
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  test('English and Arabic translation files expose the same keys', () {
+    final english = _readTranslations('assets/translations/en.json');
+    final arabic = _readTranslations('assets/translations/ar.json');
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(arabic.keys.toSet(), english.keys.toSet());
+    expect(english['changeLanguage'], 'Change Language');
+    expect(arabic['changeLanguage'], 'تغيير اللغة');
+    expect(english['loading'], 'Loading');
+    expect(arabic['loading'], 'جاري التحميل');
   });
+}
+
+Map<String, dynamic> _readTranslations(String path) {
+  final content = File(path).readAsStringSync();
+
+  return jsonDecode(content) as Map<String, dynamic>;
 }

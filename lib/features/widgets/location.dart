@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/helper/app_colors.dart';
@@ -23,18 +24,12 @@ class AddressCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.border,
-        ),
+        border: Border.all(color: AppColors.border),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(
-            Icons.location_on_outlined,
-            color: Colors.grey,
-            size: 28,
-          ),
+          const Icon(Icons.location_on_outlined, color: Colors.grey, size: 28),
 
           const SizedBox(width: 14),
 
@@ -44,10 +39,7 @@ class AddressCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      title,
-                      style: AppStyles.label,
-                    ),
+                    Text(title, style: AppStyles.label),
 
                     if (isDefault) ...[
                       const SizedBox(width: 8),
@@ -60,9 +52,9 @@ class AddressCard extends StatelessWidget {
                           color: Colors.grey.shade200,
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: const Text(
-                          "Default",
-                          style: TextStyle(
+                        child: Text(
+                          "defaultAddress".tr(),
+                          style: const TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
                           ),
@@ -74,10 +66,7 @@ class AddressCard extends StatelessWidget {
 
                 const SizedBox(height: 5),
 
-                Text(
-                  description,
-                  style: AppStyles.footer,
-                ),
+                Text(description, style: AppStyles.footer),
               ],
             ),
           ),

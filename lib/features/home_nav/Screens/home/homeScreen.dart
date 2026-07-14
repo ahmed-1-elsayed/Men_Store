@@ -1,7 +1,11 @@
+// ignore_for_file: file_names
+
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/helper/app_colors.dart';
 import '../../../../core/helper/app_style.dart';
+import '../../../../core/helper/loading_helper.dart';
 import '../../../details_screen/details_screen.dart';
 import '../../../widgets/product_card.dart';
 import '../../Controller/category/categories_cubit.dart';
@@ -19,7 +23,7 @@ class HomeScreen extends StatelessWidget {
         BlocProvider(create: (_) => HomeCubit()..getProducts()),
         BlocProvider(create: (_) => CategoriesCubit()..getCategories()),
       ],
-      child:  _HomeBody(),
+      child: const _HomeBody(),
     );
   }
 }
@@ -31,20 +35,20 @@ class _HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
-      body:  SafeArea(
+      body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 15),
-              Text("Discover", style: AppStyles.title),
-              SizedBox(height: 20),
-              _SearchFilterBar(),
-              SizedBox(height: 20),
-              _CategoriesList(),
-              SizedBox(height: 20),
-              Expanded(child: _ProductsGrid()),
+              const SizedBox(height: 15),
+              Text("discover".tr(), style: AppStyles.title),
+              const SizedBox(height: 20),
+              const _SearchFilterBar(),
+              const SizedBox(height: 20),
+              const _CategoriesList(),
+              const SizedBox(height: 20),
+              const Expanded(child: _ProductsGrid()),
             ],
           ),
         ),
@@ -65,17 +69,17 @@ class _SearchFilterBar extends StatelessWidget {
             height: 52,
             child: TextField(
               decoration: InputDecoration(
-                hintText: "Search",
-                prefixIcon:  Icon(Icons.search),
+                hintText: "search".tr(),
+                prefixIcon: const Icon(Icons.search),
                 filled: true,
                 fillColor: AppColors.white,
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide:  BorderSide(color: AppColors.border),
+                  borderSide: const BorderSide(color: AppColors.border),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide:  BorderSide(color: AppColors.primary),
+                  borderSide: const BorderSide(color: AppColors.primary),
                 ),
               ),
             ),
@@ -89,7 +93,7 @@ class _SearchFilterBar extends StatelessWidget {
             color: AppColors.primary,
             borderRadius: BorderRadius.circular(12),
           ),
-          child:  Icon(Icons.tune, color: Colors.white),
+          child: const Icon(Icons.tune, color: Colors.white),
         ),
       ],
     );
@@ -106,7 +110,7 @@ class _CategoriesList extends StatelessWidget {
       child: BlocBuilder<CategoriesCubit, CategoriesState>(
         builder: (context, categoryState) {
           if (categoryState is CategoriesLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return LoadingHelper.centered(size: 72);
           }
 
           if (categoryState is CategoriesFailure) {
@@ -126,7 +130,7 @@ class _CategoriesList extends StatelessWidget {
                   itemBuilder: (context, index) {
                     if (index == 0) {
                       return _CategoryChip(
-                        title: "All",
+                        title: "all".tr(),
                         selected: selectedCategory == 0,
                         onTap: () {
                           context.read<HomeCubit>().getProducts();
@@ -174,7 +178,7 @@ class _CategoryChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.only(right: 10),
+        margin: const EdgeInsetsDirectional.only(end: 10),
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
         decoration: BoxDecoration(
           color: selected ? AppColors.primary : AppColors.white,
@@ -205,7 +209,7 @@ class _ProductsGrid extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state is HomeLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return LoadingHelper.centered();
         }
 
         if (state is HomeFailure) {

@@ -1,12 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/helper/app_colors.dart';
-import '../../../../core/helper/app_style.dart';
+import '../../core/helper/app_colors.dart';
+import '../../core/helper/app_style.dart';
+import '../../core/helper/loading_helper.dart';
 import '../home_nav/Controller/location/location_cubit.dart';
 import '../home_nav/Controller/location/location_state.dart';
 import '../widgets/location.dart';
-
 
 class LocationScreen extends StatelessWidget {
   const LocationScreen({super.key});
@@ -23,17 +24,14 @@ class LocationScreen extends StatelessWidget {
           elevation: 0,
           centerTitle: true,
           title: Text(
-            "Address",
+            "address".tr(),
             style: AppStyles.label.copyWith(
               fontSize: 24,
               fontWeight: FontWeight.w600,
             ),
           ),
           leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back,
-              color: AppColors.black,
-            ),
+            icon: const Icon(Icons.arrow_back, color: AppColors.black),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -41,17 +39,11 @@ class LocationScreen extends StatelessWidget {
         ),
 
         body: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 10,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Saved Address",
-                style: AppStyles.label,
-              ),
+              Text("savedAddress".tr(), style: AppStyles.label),
 
               const SizedBox(height: 20),
 
@@ -59,15 +51,11 @@ class LocationScreen extends StatelessWidget {
                 child: BlocBuilder<LocationCubit, LocationState>(
                   builder: (context, state) {
                     if (state is LocationLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return LoadingHelper.centered();
                     }
 
                     if (state is LocationFailure) {
-                      return Center(
-                        child: Text(state.message),
-                      );
+                      return Center(child: Text(state.message));
                     }
 
                     if (state is LocationSuccess) {

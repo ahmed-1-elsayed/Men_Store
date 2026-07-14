@@ -1,6 +1,5 @@
 import '../../../../models/cart_get_model.dart';
 
-
 abstract class CartState {}
 
 class CartInitial extends CartState {}

@@ -1,15 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/helper/app_colors.dart';
 import '../../../../core/helper/app_style.dart';
+import '../../../../core/helper/loading_helper.dart';
 import '../../../widgets/app_button.dart';
 import '../../../widgets/cart_item.dart';
 import '../../Controller/cart/cart_cubit.dart';
 import '../../Controller/cart/cart_state.dart';
-
-
-
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -23,7 +22,9 @@ class _CartScreenState extends State<CartScreen> {
   void initState() {
     super.initState();
 
-    Future.microtask(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+
       context.read<CartCubit>().getCart();
     });
   }
@@ -39,7 +40,7 @@ class _CartScreenState extends State<CartScreen> {
         automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
-          "My Cart",
+          "myCart".tr(),
           style: AppStyles.label.copyWith(
             fontSize: 24,
             fontWeight: FontWeight.w600,
@@ -52,27 +53,28 @@ class _CartScreenState extends State<CartScreen> {
         child: BlocBuilder<CartCubit, CartState>(
           builder: (context, state) {
             if (state is CartLoading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
+              return LoadingHelper.centered();
             }
 
             if (state is CartFailure) {
-              return Center(
-                child: Text(state.message),
-              );
+              return Center(child: Text(state.message));
             }
 
             if (state is CartSuccess) {
               final cart = state.cart;
+
+              if (cart.products.isEmpty) {
+                return Center(
+                  child: Text("emptyCart".tr(), style: AppStyles.label),
+                );
+              }
 
               return Column(
                 children: [
                   Expanded(
                     child: ListView.separated(
                       itemCount: cart.products.length,
-                      separatorBuilder: (_, __) =>
-                      const SizedBox(height: 15),
+                      separatorBuilder: (_, _) => const SizedBox(height: 15),
                       itemBuilder: (context, index) {
                         final item = cart.products[index];
 
@@ -95,38 +97,29 @@ class _CartScreenState extends State<CartScreen> {
                   const SizedBox(height: 10),
 
                   _priceRow(
-                    "Sub-total",
+                    "subTotal".tr(),
                     "\$ ${cart.total.toStringAsFixed(2)}",
                   ),
 
                   const SizedBox(height: 10),
 
-                  _priceRow(
-                    "VAT (%)",
-                    "\$ 0.00",
-                  ),
+                  _priceRow("vat".tr(), "\$ 0.00"),
 
                   const SizedBox(height: 10),
 
-                  _priceRow(
-                    "Shipping fee",
-                    "\$ 80.00",
-                  ),
+                  _priceRow("shippingFee".tr(), "\$ 80.00"),
 
                   const Divider(),
 
                   _priceRow(
-                    "Total",
+                    "total".tr(),
                     "\$ ${(cart.total + 80).toStringAsFixed(2)}",
                     isTotal: true,
                   ),
 
                   const SizedBox(height: 20),
 
-                  AppButton(
-                    text: "Go To Checkout",
-                    onPressed: () {},
-                  ),
+                  AppButton(text: "goToCheckout".tr(), onPressed: () {}),
                 ],
               );
             }
@@ -138,18 +131,11 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  Widget _priceRow(
-      String title,
-      String value, {
-        bool isTotal = false,
-      }) {
+  Widget _priceRow(String title, String value, {bool isTotal = false}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: isTotal ? AppStyles.label : AppStyles.footer,
-        ),
+        Text(title, style: isTotal ? AppStyles.label : AppStyles.footer),
         Text(
           value,
           style: TextStyle(

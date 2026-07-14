@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/helper/app_colors.dart';
@@ -33,9 +34,7 @@ class CartItem extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: AppColors.border,
-        ),
+        border: Border.all(color: AppColors.border),
       ),
       child: Row(
         children: [
@@ -64,10 +63,7 @@ class CartItem extends StatelessWidget {
 
                 const SizedBox(height: 4),
 
-                Text(
-                  "Size $size",
-                  style: AppStyles.footer,
-                ),
+                Text("sizeLabel".tr(args: [size]), style: AppStyles.footer),
 
                 const SizedBox(height: 8),
 
@@ -87,19 +83,14 @@ class CartItem extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: onDelete,
-                child: const Icon(
-                  Icons.delete_outline,
-                  color: Colors.red,
-                ),
+                child: const Icon(Icons.delete_outline, color: Colors.red),
               ),
 
               const SizedBox(height: 18),
 
               Container(
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColors.border,
-                  ),
+                  border: Border.all(color: AppColors.border),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
@@ -114,9 +105,7 @@ class CartItem extends StatelessWidget {
 
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Text(
-                        quantity.toString(),
-                      ),
+                      child: Text(quantity.toString()),
                     ),
 
                     InkWell(

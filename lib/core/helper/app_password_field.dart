@@ -34,8 +34,7 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
 
         suffixIcon: IconButton(
           icon: Icon(
-            obscure ? Icons.visibility_off_outlined
-                : Icons.visibility_outlined,
+            obscure ? Icons.visibility_off_outlined : Icons.visibility_outlined,
           ),
           onPressed: () {
             setState(() {
@@ -51,17 +50,12 @@ class _AppPasswordFieldState extends State<AppPasswordField> {
 
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: AppColors.border,
-          ),
+          borderSide: const BorderSide(color: AppColors.border),
         ),
 
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: AppColors.primary,
-            width: 1.5,
-          ),
+          borderSide: const BorderSide(color: AppColors.primary, width: 1.5),
         ),
       ),
     );

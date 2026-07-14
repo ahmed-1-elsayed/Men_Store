@@ -10,10 +10,7 @@ class HomeSuccess extends HomeState {
   final List<ProductModel> products;
   final int selectedCategory;
 
-  HomeSuccess({
-    required this.products,
-    required this.selectedCategory,
-  });
+  HomeSuccess({required this.products, required this.selectedCategory});
 }
 
 class HomeFailure extends HomeState {
